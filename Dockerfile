@@ -1,0 +1,1 @@
+FROM keycloak/keycloak-gatekeeper
