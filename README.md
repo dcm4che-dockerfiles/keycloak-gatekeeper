@@ -1,4 +1,4 @@
-```
+```console
 $ docker run --rm dcm4che/keycloak-gatekeeper:5.0.0 help
 NAME:
    keycloak-gatekeeper - is a proxy using the keycloak service for auth and authorization
