@@ -1,0 +1,59 @@
+version: "3"
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.4.3
+    environment:
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      http.cors.enabled: "true"
+      http.cors.allow-origin: "/.*/"
+      http.cors.allow-headers: "X-Requested-With,Content-Length,Content-Type,Authorization"
+      TAKE_FILE_OWNERSHIP: 1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /var/local/dcm4chee-arc/elasticsearch:/usr/share/elasticsearch/data
+  kibana:
+    image: docker.elastic.co/kibana/kibana-oss:6.4.3
+    depends_on:
+      - elasticsearch
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+  ldap:
+    image: dcm4che/slapd-dcm4chee:2.4.44-16.1
+    ports:
+      - "389:389"
+      - "636:636"
+    env_file: docker-compose.env
+    depends_on:
+      - logstash
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /var/local/dcm4chee-arc/ldap:/var/lib/ldap
+      - /var/local/dcm4chee-arc/slapd.d:/etc/ldap/slapd.d
+  keycloak-gatekeeper:
+    image: dcm4che/keycloak-gatekeeper:5.0.0
+    ports:
+      - "8643:8643"
+    environment:
+      PROXY_LISTEN: 0.0.0.0:8643
+      PROXY_REDIRECTION_URL: https://gunter-nb:8643
+      PROXY_UPSTREAM_URL: http://kibana:5601
+      PROXY_DISCOVERY_URL: https://gunter-nb:8843/auth/realms/dcm4che
+      PROXY_CLIENT_ID: kibana
+      PROXY_CLIENT_SECRET: 968956a3-582b-4f8c-9d09-249fc9f74c35
+      PROXY_ENCRYPTION_KEY: AgXa7xRcoClDEU0ZDSH4X0XhL5Qy2Z2j
+    command:
+      - "--openid-provider-timeout=120s"
+      - "--tls-cert=/etc/certs/cert.pem"
+      - "--tls-private-key=/etc/certs/key.pem"
+      - "--skip-openid-provider-tls-verify=true"
+      - "--enable-refresh-tokens=true"
+      - "--resources=uri=/*|methods=GET|roles=auditlog"
+    depends_on:
+      - kibana
+      - keycloak
