@@ -1,7 +1,7 @@
 version: "3"
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.4.3
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.7.1
     environment:
       ES_JAVA_OPTS: -Xms512m -Xmx512m
       http.cors.enabled: "true"
@@ -16,14 +16,14 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /var/local/dcm4chee-arc/elasticsearch:/usr/share/elasticsearch/data
   kibana:
-    image: docker.elastic.co/kibana/kibana-oss:6.4.3
+    image: docker.elastic.co/kibana/kibana-oss:6.7.1
     depends_on:
       - elasticsearch
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
   ldap:
-    image: dcm4che/slapd-dcm4chee:2.4.44-16.1
+    image: dcm4che/slapd-dcm4chee:2.4.44-17.0
     ports:
       - "389:389"
       - "636:636"
@@ -36,7 +36,7 @@ services:
       - /var/local/dcm4chee-arc/ldap:/var/lib/ldap
       - /var/local/dcm4chee-arc/slapd.d:/etc/ldap/slapd.d
   keycloak-gatekeeper:
-    image: dcm4che/keycloak-gatekeeper:5.0.0
+    image: dcm4che/keycloak-gatekeeper:6.0.1
     ports:
       - "8643:8643"
     environment:
