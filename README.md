@@ -1,5 +1,5 @@
 ```console
-$ docker run --rm dcm4che/keycloak-gatekeeper:5.0.0 help
+$ docker run --rm dcm4che/keycloak-gatekeeper:6.0.1 help
 NAME:
    keycloak-gatekeeper - is a proxy using the keycloak service for auth and authorization
 
@@ -7,7 +7,7 @@ USAGE:
    keycloak-gatekeeper [options]
 
 VERSION:
-   5.0.0 (git+sha: 1944a5a-dirty, built: 06-03-2019)
+   6.0.1 (git+sha: cd7ed04, built: 25-04-2019)
 
 AUTHOR:
    Keycloak <keycloak-user@lists.jboss.org>
@@ -63,6 +63,7 @@ GLOBAL OPTIONS:
    --content-security-policy value           specify the content security policy
    --localhost-metrics                       enforces the metrics page can only been requested from 127.0.0.1 (default: false)
    --access-token-duration value             fallback cookie duration for the access token when using refresh tokens (default: 720h0m0s)
+   --client-auth-method value                the auth method to use with oauth (secret-basic, secret-body) (default: "secret-basic") [$PROXY_CLIENT_AUTH_METHOD]
    --cookie-domain value                     domain the access cookie is available to, defaults host header
    --cookie-access-name value                name of the cookie use to hold the access token (default: "kc-access")
    --cookie-refresh-name value               name of the cookie used to hold the encrypted refresh token (default: "kc-state")
