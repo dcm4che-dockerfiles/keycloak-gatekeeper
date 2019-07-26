@@ -33,7 +33,7 @@ services:
       - /var/local/dcm4chee-arc/ldap:/var/lib/ldap
       - /var/local/dcm4chee-arc/slapd.d:/etc/ldap/slapd.d
   keycloak:
-    image: dcm4che/keycloak:6.0.0-16.2-logstash
+    image: dcm4che/keycloak:6.0.1-17.0
     ports:
       - "8880:8880"
       - "8843:8843"
@@ -52,24 +52,32 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /var/local/dcm4chee-arc/keycloak:/opt/keycloak/standalone
   keycloak-gatekeeper:
-    image: dcm4che/keycloak-gatekeeper:6.0.1
+    image: dcm4che/keycloak-gatekeeper:6.0.1-update-ca-certificates
     ports:
       - "8643:8643"
+    volumes:
+      - ./certs/cacert.pem:/usr/local/share/ca-certificates/IHE-Europe-CA.crt
     environment:
+      UPDATE_CA_CERTIFICATES: 1
       PROXY_LISTEN: :8643
       PROXY_REDIRECTION_URL: https://gunter-nb:8643
       PROXY_UPSTREAM_URL: http://kibana:5601
-      PROXY_DISCOVERY_URL: https://gunter-nb:8843/auth/realms/dcm4che
+      PROXY_DISCOVERY_URL: https://PACS_J4C:8843/auth/realms/dcm4che
       PROXY_CLIENT_ID: kibana
-      PROXY_CLIENT_SECRET: 968956a3-582b-4f8c-9d09-249fc9f74c35
+      PROXY_CLIENT_SECRET: 5c7d81c4-875d-4905-93ba-9abad7c4c6ee
       PROXY_ENCRYPTION_KEY: AgXa7xRcoClDEU0ZDSH4X0XhL5Qy2Z2j
     command:
       - "--openid-provider-timeout=120s"
       - "--tls-cert=/etc/certs/cert.pem"
       - "--tls-private-key=/etc/certs/key.pem"
-      - "--skip-openid-provider-tls-verify=true"
+      - "--skip-openid-provider-tls-verify=false"
       - "--enable-refresh-tokens=true"
+      - "--enable-token-header=false"
+      - "--enable-authorization-header=false"
+      - "--enable-authorization-cookies=false"
       - "--resources=uri=/*|roles=auditlog"
+    extra_hosts:
+      - PACS_J4C:192.168.2.131
     depends_on:
       - kibana
       - keycloak

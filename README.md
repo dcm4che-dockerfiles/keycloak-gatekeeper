@@ -1,5 +1,5 @@
 ```console
-$ docker run --rm dcm4che/keycloak-gatekeeper:6.0.1 help
+$ docker run --rm dcm4che/keycloak-gatekeeper:6.0.1-update-ca-certficate help
 NAME:
    keycloak-gatekeeper - is a proxy using the keycloak service for auth and authorization
 
@@ -113,4 +113,15 @@ GLOBAL OPTIONS:
    --disable-all-logging                     disables all logging to stdout and stderr (default: false)
    --help, -h                                show help
    --version, -v                             print the version
+```
+
+You may add a certificate authority (CA) by
+- set environment variable `$UPDATE_CA_CERTIFICATES` to `1` and
+- bind mount your certificate in PEM format into `/usr/local/share/ca-certificates` and name it with a `.crt` file extension.
+
+E.g.
+```bash
+$ docker run -e UPDATE_CA_CERTIFICATES=1 -v /path/to/my-ca-cert.pem:/usr/local/share/ca-certificates/my-ca-cert.crt \
+   ... \
+   -d dcm4che/keycloak-gatekeeper:6.0.1-update-ca-certficate
 ```
