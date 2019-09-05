@@ -1,5 +1,5 @@
 ```console
-$ docker run --rm dcm4che/keycloak-gatekeeper:6.0.1-update-ca-certficate help
+$ docker run --rm dcm4che/keycloak-gatekeeper:7.0.0 help
 NAME:
    keycloak-gatekeeper - is a proxy using the keycloak service for auth and authorization
 
@@ -7,7 +7,7 @@ USAGE:
    keycloak-gatekeeper [options]
 
 VERSION:
-   6.0.1 (git+sha: cd7ed04, built: 25-04-2019)
+   7.0.0 (git+sha: f66e137, built: 03-09-2019)
 
 AUTHOR:
    Keycloak <keycloak-user@lists.jboss.org>
@@ -44,6 +44,7 @@ GLOBAL OPTIONS:
    --enable-logout-redirect                  indicates we should redirect to the identity provider for logging out (default: false)
    --enable-default-deny                     enables a default denial on all requests, you have to explicitly say what is permitted (recommended) (default: true)
    --enable-encrypted-token                  enable encryption for the access tokens (default: false)
+   --force-encrypted-cookie                  force encryption for the access tokens in cookies (default: false)
    --enable-logging                          enable http logging of the requests (default: false)
    --enable-json-logging                     switch on json logging rather than text (default: false)
    --enable-forwarding                       enables the forwarding proxy mode, signing outbound request (default: false)
@@ -123,5 +124,5 @@ E.g.
 ```bash
 $ docker run -e UPDATE_CA_CERTIFICATES=1 -v /path/to/my-ca-cert.pem:/usr/local/share/ca-certificates/my-ca-cert.crt \
    ... \
-   -d dcm4che/keycloak-gatekeeper:6.0.1-update-ca-certficate
+   -d dcm4che/keycloak-gatekeeper:7.0.0
 ```

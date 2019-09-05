@@ -1,4 +1,4 @@
-FROM keycloak/keycloak-gatekeeper:6.0.1
+FROM keycloak/keycloak-gatekeeper:7.0.0
 
 COPY docker-entrypoint.sh /
 COPY certs /etc/certs
