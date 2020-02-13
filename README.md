@@ -1,5 +1,5 @@
 ```console
-$ docker run --rm dcm4che/keycloak-gatekeeper:7.0.0 help
+$ docker run --rm dcm4che/keycloak-gatekeeper:8.0.2 help
 NAME:
    keycloak-gatekeeper - is a proxy using the keycloak service for auth and authorization
 
@@ -7,7 +7,7 @@ USAGE:
    keycloak-gatekeeper [options]
 
 VERSION:
-   7.0.0 (git+sha: f66e137, built: 03-09-2019)
+   8.0.2 (git+sha: 43ff199, built: 05-02-2020)
 
 AUTHOR:
    Keycloak <keycloak-user@lists.jboss.org>
@@ -70,6 +70,7 @@ GLOBAL OPTIONS:
    --cookie-refresh-name value               name of the cookie used to hold the encrypted refresh token (default: "kc-state")
    --secure-cookie                           enforces the cookie to be secure (default: true)
    --http-only-cookie                        enforces the cookie is in http only mode (default: true)
+   --same-site-cookie value                  enforces cookies to be send only to same site requests according to the policy (can be Strict|Lax|None) (default: "Lax")
    --match-claims value                      keypair values for matching access token claims e.g. aud=myapp, iss=http://example.*
    --add-claims value                        extra claims from the token and inject into headers, e.g given_name -> X-Auth-Given-Name
    --tls-cert value                          path to ths TLS certificate
@@ -124,5 +125,5 @@ E.g.
 ```bash
 $ docker run -e UPDATE_CA_CERTIFICATES=1 -v /path/to/my-ca-cert.pem:/usr/local/share/ca-certificates/my-ca-cert.crt \
    ... \
-   -d dcm4che/keycloak-gatekeeper:7.0.0
+   -d dcm4che/keycloak-gatekeeper:8.0.2
 ```
