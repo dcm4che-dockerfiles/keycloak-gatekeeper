@@ -1,7 +1,7 @@
 FROM alpine:3.8
 
 ENV NAME keycloak-gatekeeper
-ENV KEYCLOAK_VERSION 8.0.2
+ENV KEYCLOAK_VERSION 9.0.0
 ENV GOOS linux
 ENV GOARCH amd64
 
@@ -24,5 +24,6 @@ USER 1000
 
 COPY docker-entrypoint.sh /
 COPY certs /etc/certs
+COPY templates /templates
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
