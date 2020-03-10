@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.11.3
 
 ENV NAME keycloak-gatekeeper
 ENV KEYCLOAK_VERSION 9.0.0
