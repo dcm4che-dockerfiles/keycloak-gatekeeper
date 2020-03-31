@@ -1,5 +1,5 @@
 ```console
-$ docker run --rm dcm4che/keycloak-gatekeeper:9.0.0 help
+$ docker run --rm dcm4che/keycloak-gatekeeper:9.0.2 help
 NAME:
    keycloak-gatekeeper - is a proxy using the keycloak service for auth and authorization
 
@@ -7,7 +7,7 @@ USAGE:
    keycloak-gatekeeper [options]
 
 VERSION:
-   9.0.0 (git+sha: 4293a9b, built: 17-02-2020)
+   9.0.2 (git+sha: d7f64e7, built: 24-03-2020)
 
 AUTHOR:
    Keycloak <keycloak-user@lists.jboss.org>
@@ -125,13 +125,13 @@ E.g.
 ```bash
 $ docker run -e UPDATE_CA_CERTIFICATES=1 -v /path/to/my-ca-cert.pem:/usr/local/share/ca-certificates/my-ca-cert.crt \
    ... \
-   -d dcm4che/keycloak-gatekeeper:9.0.0
+   -d dcm4che/keycloak-gatekeeper:9.0.2
 ```
 
 You may pass ´/templates/forbidden_page.html.tmpl´ as value of option `--forbidden-page` to display an error page
 on forbidden access:
 ```bash
 $ docker run ... \
-   -d dcm4che/keycloak-gatekeeper:9.0.0 \
+   -d dcm4che/keycloak-gatekeeper:9.0.2 \
    --forbidden-page /templates/forbidden_page.html.tmpl
 ```
