@@ -33,7 +33,7 @@ services:
       - /var/local/dcm4chee-arc/ldap:/var/lib/ldap
       - /var/local/dcm4chee-arc/slapd.d:/etc/ldap/slapd.d
   keycloak:
-    image: dcm4che/keycloak:9.0.2
+    image: dcm4che/keycloak:10.0.1
     ports:
       - "8880:8880"
       - "8843:8843"
@@ -52,7 +52,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /var/local/dcm4chee-arc/keycloak:/opt/keycloak/standalone
   keycloak-gatekeeper:
-    image: dcm4che/keycloak-gatekeeper:9.0.2
+    image: dcm4che/keycloak-gatekeeper:10.0.1
     ports:
       - "8643:8643"
     volumes:

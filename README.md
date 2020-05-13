@@ -1,5 +1,5 @@
 ```console
-$ docker run --rm dcm4che/keycloak-gatekeeper:9.0.2 help
+$ docker run --rm dcm4che/keycloak-gatekeeper:10.0.1 help
 NAME:
    keycloak-gatekeeper - is a proxy using the keycloak service for auth and authorization
 
@@ -7,7 +7,7 @@ USAGE:
    keycloak-gatekeeper [options]
 
 VERSION:
-   9.0.2 (git+sha: d7f64e7, built: 24-03-2020)
+   10.0.1 (git+sha: 691bc4c, built: 08-05-2020)
 
 AUTHOR:
    Keycloak <keycloak-user@lists.jboss.org>
